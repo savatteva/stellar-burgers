@@ -1,5 +1,6 @@
 import { ProfileOrdersUI } from '@ui-pages';
 import { FC, useEffect } from 'react';
+import { asyncThunkFeed, takeOrders } from '../../services/feedSlice';
 import {
   ordersSelector,
   orders as getOrders
@@ -12,6 +13,7 @@ export const ProfileOrders: FC = () => {
 
   useEffect(() => {
     dispatch(getOrders());
+    dispatch(asyncThunkFeed());
   }, []);
 
   return <ProfileOrdersUI orders={orders} />;

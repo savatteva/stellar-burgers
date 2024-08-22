@@ -17,21 +17,36 @@ const initialState: OrderSlice = {
 };
 
 export const getOrder = createAsyncThunk('order/getOrder', orderBurgerApi);
+export const getOrderByNumber = createAsyncThunk(
+  'order/getOrderByNumber',
+  getOrderByNumberApi
+);
 
 const orderSlice = createSlice({
   name: 'orderSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    clear: (state) => {
+      state.orderModalData = null;
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getOrder.fulfilled, (state, action) => {
       state.orderModalData = action.payload.order;
-      state.orderRequest = true;
+      state.orderRequest = false;
     });
     builder.addCase(getOrder.pending, (state) => {
-      state.orderRequest = false;
+      state.orderRequest = true;
     });
     builder.addCase(getOrder.rejected, (state) => {
       state.orderRequest = false;
+    });
+    builder.addCase(getOrderByNumber.pending, (state) => {
+      state.orderRequest = true;
+    });
+    builder.addCase(getOrderByNumber.fulfilled, (state, action) => {
+      state.orderByNumber = action.payload.orders[0];
+      state.orderModalData = action.payload.orders[0];
     });
   },
   selectors: {
@@ -44,4 +59,5 @@ const orderSlice = createSlice({
 
 export const { orderSliceSelector, orderModal, orderByNumber, orderRequest } =
   orderSlice.selectors;
+export const { clear } = orderSlice.actions;
 export default orderSlice;

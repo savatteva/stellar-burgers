@@ -2,12 +2,18 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient, TOrder } from '@utils-types';
-import { RootState, useSelector } from '../../services/store';
+import { RootState, useDispatch, useSelector } from '../../services/store';
 import { ingredientSelector } from '../../services/ingredientSlice';
 import { takeOrders } from '../../services/feedSlice';
 import { useParams } from 'react-router-dom';
+import {
+  getOrderByNumber,
+  orderByNumber,
+  orderModal
+} from '../../services/orderSlice';
 
 export const OrderInfo: FC = () => {
+  const dispatch = useDispatch();
   const [orderData, setOrderData] = useState<TOrder>({
     createdAt: '',
     ingredients: [],
@@ -19,6 +25,7 @@ export const OrderInfo: FC = () => {
   });
 
   const orders = useSelector(takeOrders);
+
   let { number } = useParams();
 
   useEffect(() => {

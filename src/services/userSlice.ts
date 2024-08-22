@@ -61,7 +61,7 @@ export const userSlice = createSlice({
   name: 'userSlice',
   initialState,
   reducers: {
-    checkAuthUser: (state) => {
+    checkAuth: (state) => {
       state.isAuthChecked = true;
     }
   },
@@ -134,24 +134,24 @@ export const userSlice = createSlice({
   },
   selectors: {
     userSliceSelector: (state) => state.user,
-    checkAuth: (state) => state.isAuthChecked
+    checkAuthUser: (state) => state.isAuthChecked
   }
 });
 
-export const { checkAuthUser } = userSlice.actions;
+export const { checkAuth } = userSlice.actions;
 
 export const checkUserAuth = createAsyncThunk(
   'user/checkUser',
   (_, { dispatch }) => {
     if (getCookie('accessToken')) {
       dispatch(getUser()).finally(() => {
-        dispatch(checkAuthUser());
+        dispatch(checkAuth());
       });
     } else {
-      dispatch(checkAuthUser());
+      dispatch(checkAuth());
     }
   }
 );
 
-export const { userSliceSelector, checkAuth } = userSlice.selectors;
+export const { userSliceSelector, checkAuthUser } = userSlice.selectors;
 export default userSlice;

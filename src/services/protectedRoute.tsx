@@ -1,7 +1,7 @@
 import { useSelector } from './store';
 import { Navigate, useLocation } from 'react-router';
 import { Preloader } from '@ui';
-import { checkAuth, userSliceSelector } from './userSlice';
+import { checkAuth, checkAuthUser, userSliceSelector } from './userSlice';
 
 type ProtectedRouteProps = {
   onlyUnAuth?: boolean;
@@ -14,7 +14,7 @@ export const ProtectedRoute = ({
 }: ProtectedRouteProps) => {
   const user = useSelector(userSliceSelector);
   const location = useLocation();
-  const isAuthChecked = useSelector(checkAuth);
+  const isAuthChecked = useSelector(checkAuthUser);
 
   if (!isAuthChecked) {
     return <Preloader />;

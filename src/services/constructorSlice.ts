@@ -24,21 +24,20 @@ const constructorSlice = createSlice({
         }
       },
       prepare: (item) => {
-        const key = nanoid();
-        return { payload: { ...item, key } };
+        const id = nanoid();
+        return { payload: { ...item, id } };
       }
     },
-    remove: {
-      reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
-        const newState = state.ingredients.filter(
-          (item) => item._id !== action.payload._id
-        );
-        state.ingredients = newState;
-      },
-      prepare: (item) => {
-        const key = nanoid();
-        return { payload: { ...item, key } };
-      }
+    remove: (state, action: PayloadAction<TConstructorIngredient>) => {
+      const newState = state.ingredients.filter(
+        (item) => item.id !== action.payload.id
+      );
+
+      state.ingredients = newState;
+    },
+    clearConstructor: (state) => {
+      state.bun = null;
+      state.ingredients = [];
     },
     reorderConstructor: {
       reducer: (
@@ -50,12 +49,10 @@ const constructorSlice = createSlice({
 
         ingredients.splice(to, 0, ingredients.splice(from, 1)[0]);
         state.ingredients = ingredients;
-
-        console.log(ingredients);
       },
       prepare: (item) => {
-        const key = nanoid();
-        return { payload: { ...item, key } };
+        const id = nanoid();
+        return { payload: { ...item, id } };
       }
     }
   },
@@ -64,7 +61,8 @@ const constructorSlice = createSlice({
   }
 });
 
-export const { add, remove, reorderConstructor } = constructorSlice.actions;
+export const { add, remove, reorderConstructor, clearConstructor } =
+  constructorSlice.actions;
 
 export const { constructorItem } = constructorSlice.selectors;
 

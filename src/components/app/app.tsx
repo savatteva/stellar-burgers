@@ -18,7 +18,7 @@ import { useEffect } from 'react';
 import { asyncThunkIngredient } from '../../services/ingredientSlice';
 import { useDispatch } from '../../services/store';
 import { ProtectedRoute } from '../../services/protectedRoute';
-import { checkAuthUser, getUser } from '../../services/userSlice';
+import { checkAuth, checkUserAuth, getUser } from '../../services/userSlice';
 
 const App = () => {
   const location = useLocation();
@@ -35,7 +35,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    dispatch(checkAuthUser());
+    dispatch(checkUserAuth());
     dispatch(asyncThunkIngredient());
   }, []);
 
@@ -96,6 +96,14 @@ const App = () => {
         <Route path='*' element={<NotFound404 />} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='/feed/:number' element={<OrderInfo />} />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       {backgroundLocation && (
@@ -114,6 +122,16 @@ const App = () => {
               <Modal title={'Информация о заказе'} onClose={goBack}>
                 <OrderInfo />
               </Modal>
+            }
+          />
+          <Route
+            path='/profile/orders/:number'
+            element={
+              <ProtectedRoute>
+                <Modal title={'Информация о заказе'} onClose={goBack}>
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>
