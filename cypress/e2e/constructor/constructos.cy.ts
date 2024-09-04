@@ -8,8 +8,8 @@ describe('проверяем приложениe', function () {
 
   it('добавление булки в конструктор', () => {
 
-    cy.get('[data-cy="constructor-bun-1"]').contains('Краторная булка N-200i').should('not.exist');
-    cy.get('[data-cy="constructor-bun-2"]').contains('Краторная булка N-200i').should('not.exist');
+    cy.get('[data-cy="constructor-bun-1"]').should('not.exist');
+    cy.get('[data-cy="constructor-bun-2"]').should('not.exist');
 
     cy.get('[data-cy="ingredients-bun"]').contains('Добавить').click();
 
@@ -56,7 +56,7 @@ describe('проверяем приложениe', function () {
     cy.get('[data-cy="modal"]').should('not.exist');
     
     cy.get('[data-cy="constructor"]').contains('Биокотлета из марсианской Магнолии').should('not.exist');
-    cy.get('[data-cy=ingredients-bun]').contains('Краторная булка N-200i').should('not.exist');
+    cy.get('[data-cy="constructor"]').contains('Краторная булка N-200i').should('not.exist');
 
     cy.clearCookies();
     cy.clearLocalStorage();
