@@ -8,23 +8,25 @@ import userSlice from './userSlice';
 
 describe('тестирование rootReducer', () => {
   it('rootReducer', () => {
-    expect(rootReducer(undefined, { type: 'UNKNOWN_ACTION' })).toEqual({
-      [ingredientSlice.name]: ingredientSlice.reducer(undefined, {
+    const state = rootReducer(undefined, { type: 'UNKNOWN_ACTION' })
+
+    expect(state).toEqual({
+      ingredientSlice: ingredientSlice.reducer(undefined, {
         type: 'UNKNOWN_ACTION'
       }),
-      [constructorSlice.name]: constructorSlice.reducer(undefined, {
+      constructorSlice: constructorSlice.reducer(undefined, {
         type: 'UNKNOWN_ACTION'
       }),
-      [feedSlice.name]: feedSlice.reducer(undefined, {
+      feedSlice: feedSlice.reducer(undefined, {
         type: 'UNKNOWN_ACTION'
       }),
-      [userSlice.name]: userSlice.reducer(undefined, {
+      userSlice: userSlice.reducer(undefined, {
         type: 'UNKNOWN_ACTION'
       }),
-      [orderSlice.name]: orderSlice.reducer(undefined, {
+      orderSlice: orderSlice.reducer(undefined, {
         type: 'UNKNOWN_ACTION'
       }),
-      [ordersSlice.name]: ordersSlice.reducer(undefined, {
+      orders: ordersSlice.reducer(undefined, {
         type: 'UNKNOWN_ACTION'
       })
     });

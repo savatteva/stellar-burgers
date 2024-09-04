@@ -7,6 +7,10 @@ describe('проверяем приложениe', function () {
   });
 
   it('добавление булки в конструктор', () => {
+
+    cy.get('[data-cy="constructor-bun-1"]').contains('Краторная булка N-200i').should('not.exist');
+    cy.get('[data-cy="constructor-bun-2"]').contains('Краторная булка N-200i').should('not.exist');
+
     cy.get('[data-cy="ingredients-bun"]').contains('Добавить').click();
 
     cy.get('[data-cy="constructor-bun-1"]').contains('Краторная булка N-200i').should('exist');
@@ -14,12 +18,16 @@ describe('проверяем приложениe', function () {
   })
 
   it('добавление ингридиента в конструктор', () => {
+    cy.get('[data-cy="constructor"]').contains('Биокотлета из марсианской Магнолии').should('not.exist');
+
     cy.get('[data-cy="ingredients-mains"]').contains('Добавить').click();
 
     cy.get('[data-cy="constructor"]').contains('Биокотлета из марсианской Магнолии').should('exist');
   })
 
   it('открытие модалок', () => {
+    cy.get('[data-cy="modal"]').should('not.exist')
+
     cy.get('[data-cy="ingredients-bun"]').contains('Краторная булка N-200i').click();
 
     cy.get('[data-cy="modal"]').should('exist')
@@ -44,9 +52,11 @@ describe('проверяем приложениe', function () {
 
     cy.get('[data-cy="modal"]').should('exist');
     cy.get('[data-cy="btn-close"]').click();
+
+    cy.get('[data-cy="modal"]').should('not.exist');
     
     cy.get('[data-cy="constructor"]').contains('Биокотлета из марсианской Магнолии').should('not.exist');
-
+    cy.get('[data-cy=ingredients-bun]').contains('Краторная булка N-200i').should('not.exist');
 
     cy.clearCookies();
     cy.clearLocalStorage();

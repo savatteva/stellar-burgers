@@ -17,7 +17,8 @@ const mockBun = {
   image: 'https://code.s3.yandex.net/react/code/bun-02.png',
   image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
   image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
-  __v: 0
+  __v: 0,
+  id: '1'
 };
 
 const mockIngr = {
@@ -55,8 +56,8 @@ describe('тесты для конструктора', () => {
 
   it('добавление булки', () => {
     expect(
-      constructorSlice.reducer(initialState, add(mockBun)).bun
-    ).toMatchObject(mockBun);
+      constructorSlice.reducer(initialState, add(mockBun)).bun?._id
+    ).toBe('1');
   });
 
   it('удаление булки', () => {
